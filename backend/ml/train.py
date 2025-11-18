@@ -1,18 +1,18 @@
 # backend/ml/train.py
 import os
-import argparse
+import argparse # pour fichier exécutable en ligne de commande (clI)
 import logging
 from pathlib import Path
 
 import pandas as pd
-from sklearn import datasets
+from sklearn import datasets 
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 import joblib
 import mlflow
-import mlflow.sklearn
+import mlflow.sklearn # pour autolog & log_model
 
 # ---------------------------
 # Configuration logging
@@ -40,7 +40,7 @@ def get_model_dir(env_var_name: str = "MODEL_DIR") -> Path:
     model_dir.mkdir(parents=True, exist_ok=True)
     return model_dir
 
-def configure_mlflow():
+def configure_mlflow():#tracking_url: c'est ici qu'on configure mlflow: local ou distant 
     """
     Configure MLflow tracking URI à partir de la variable d'environnement MLFLOW_TRACKING_URI,
     sinon fallback vers un dossier local ./mlruns dans le répertoire courant.
@@ -116,14 +116,14 @@ def train_and_log(args):
         mlflow.log_metric("recall_macro", float(rec))
         mlflow.log_metric("f1_macro", float(f1))
 
-        # Tag utile (ex.)
+        # Tag utile (ex.) : quel dataset on a utilisé
         mlflow.set_tag("dataset", "iris")
         mlflow.set_tag("script", "backend/ml/train.py")
 
         # 4) Sauvegarde du modèle en .pkl dans model_dir (pour usage pipeline & API)
         pkl_name = f"iris_model_{run_id}.pkl"
         pkl_path = model_dir / "model.pkl"  # nom constant pour le déploiement (back/front)
-        # On sauvegarde aussi avec run_id pour traçabilité
+        # On sauvegarde aussi avec run_id pour traçabilité (debug/tracking)
         pkl_with_run = model_dir / pkl_name
 
         joblib.dump(model, pkl_path)
@@ -148,9 +148,9 @@ def train_and_log(args):
     }
 
 # ---------------------------
-# CLI
+# CLI : pour exécuter ce script directement
 # ---------------------------
-def parse_args():
+def parse_args(): 
     parser = argparse.ArgumentParser(description="Train Iris model with MLflow tracking and save .pkl")
     parser.add_argument("--test-size", type=float, default=0.2, help="Taille du test set")
     parser.add_argument("--random-state", type=int, default=8888, help="Random seed")
@@ -158,7 +158,7 @@ def parse_args():
     parser.add_argument("--max-iter", type=int, default=1000, help="Max iterations for solver")
     return parser.parse_args()
 
-def main():
+def main(): 
     args = parse_args()
     logger.info("Lancement du training script")
     result = train_and_log(args)
