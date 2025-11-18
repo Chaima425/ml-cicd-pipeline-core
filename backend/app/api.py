@@ -34,6 +34,8 @@ class IrisFeatures(BaseModel):
 
 @app.post("/predict")
 async def predict(features: IrisFeatures):
+    logger.info(f"Requête reçue pour prédiction : {features.dict()}")
+
     # Convertir en liste pour le modèle
     input_list = [
         features.sepal_length,
@@ -41,5 +43,20 @@ async def predict(features: IrisFeatures):
         features.petal_length,
         features.petal_width
     ]
+
     prediction = model.predict([input_list])[0]
+
+    logger.info(f"Prédiction retournée : {prediction}")
+
     return {"prediction": int(prediction)}
+# @app.post("/predict")
+# async def predict(features: IrisFeatures):
+#     # Convertir en liste pour le modèle
+#     input_list = [
+#         features.sepal_length,
+#         features.sepal_width,
+#         features.petal_length,
+#         features.petal_width
+#     ]
+#     prediction = model.predict([input_list])[0]
+#     return {"prediction": int(prediction)}

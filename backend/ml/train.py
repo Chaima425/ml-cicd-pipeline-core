@@ -37,6 +37,7 @@ def get_model_dir(env_var_name: str = "MODEL_DIR") -> Path:
     else:
         # Ce fichier est backend/ml/train.py -> parents[1] == backend
         model_dir = Path(__file__).resolve().parents[1] / "model"
+        logger.info(f"Aucune variable d'env MODEL_DIR. Utilisation du chemin par défaut : {model_dir}")
     model_dir.mkdir(parents=True, exist_ok=True)
     return model_dir
 
@@ -47,14 +48,14 @@ def configure_mlflow():#tracking_url: c'est ici qu'on configure mlflow: local ou
     """
     mlflow_uri = os.getenv("MLFLOW_TRACKING_URI")
     if mlflow_uri:
-        logger.info("Utilisation de MLFLOW_TRACKING_URI depuis l'environnement.")
+        logger.info(f"MLflow distant utilisé : {mlflow_uri}")
         mlflow.set_tracking_uri(mlflow_uri)
     else:
         local_store = Path.cwd() / "mlruns"
         local_store.mkdir(exist_ok=True)
         # file:// URI pour stockage local
         mlflow.set_tracking_uri(f"file://{local_store}")
-        logger.info(f"Aucun MLFLOW_TRACKING_URI trouvé, fallback vers {local_store}")
+        logger.info(f"MLflow local utilisé → stockage dans : {local_store}")
 
     # Nom d'expérience configurable via env EXPERIMENT_NAME ou défaut
     exper_name = os.getenv("MLFLOW_EXPERIMENT_NAME", "MLflow Quickstart")

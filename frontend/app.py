@@ -13,10 +13,17 @@ petal_length = st.number_input("Petal length", 0.0, 10.0, 1.4)
 petal_width = st.number_input("Petal width", 0.0, 10.0, 0.2)
 
 if st.button("Predict"):
-    data = {"features": [sepal_length, sepal_width, petal_length, petal_width]}
+    data = {
+        "sepal_length": sepal_length,
+        "sepal_width": sepal_width,
+        "petal_length": petal_length,
+        "petal_width": petal_width
+    }
+
     response = requests.post(f"{backend_url}/predict", json=data)
 
     if response.status_code == 200:
         st.success(f"Prediction: {response.json()['prediction']}")
     else:
-        st.error("Error contacting API")
+        st.error(f"Error contacting API: {response.text}")
+
