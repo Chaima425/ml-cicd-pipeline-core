@@ -1,0 +1,10 @@
+[tool.ruff]
+# Longueur maximale d'une ligne
+line-length = 79
+
+# Sélection de règles supplémentaires
+extend-select = ["E501", "UP", "D"]
+
+[tool.ruff.lint.pydocstyle]
+# Convention Google pour les docstrings
+convention = "google"

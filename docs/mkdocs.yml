@@ -1,0 +1,32 @@
+site_name: ML CICD Pipeline Core
+site_description: Documentation du projet CI/CD avec FastAPI, Streamlit, MLflow, Docker et GitHub Actions.
+
+nav:
+  - Backend:
+      - API FastAPI: backend/api.md
+      - Modèle ML: backend/model.md
+      - Tests: backend/tests.md
+  - Frontend:
+      - Interface Streamlit: frontend/app.md
+  - CI/CD:
+      - Pipeline GitHub Actions: cicd/pipeline.md
+      - Dockerisation: cicd/docker.md
+  - MLflow:
+      - Suivi des expériences: mlflow/tracking.md
+  - Déploiement:
+      - Azure App Service: deploy/azure.md
+      - Docker Hub: deploy/dockerhub.md
+
+theme:
+  name: material
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - admonition
+  - codehilite
+  - pymdownx.highlight
+  - pymdownx.superfences
+
+plugins:
+  - search
