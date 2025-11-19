@@ -1,9 +1,10 @@
 # backend/app/api.py
+import logging
+from pathlib import Path
+
+import joblib
 from fastapi import FastAPI
 from pydantic import BaseModel
-import joblib
-from pathlib import Path
-import logging
 
 app = FastAPI()
 
@@ -34,7 +35,7 @@ class IrisFeatures(BaseModel):
 
 @app.post("/predict")
 async def predict(features: IrisFeatures):
-    logger.info(f"Requête reçue pour prédiction : {features.dict()}")
+    logger.info(f"Requête reçue pour prédiction : {features}")
 
     # Convertir en liste pour le modèle
     input_list = [
@@ -49,14 +50,3 @@ async def predict(features: IrisFeatures):
     logger.info(f"Prédiction retournée : {prediction}")
 
     return {"prediction": int(prediction)}
-# @app.post("/predict")
-# async def predict(features: IrisFeatures):
-#     # Convertir en liste pour le modèle
-#     input_list = [
-#         features.sepal_length,
-#         features.sepal_width,
-#         features.petal_length,
-#         features.petal_width
-#     ]
-#     prediction = model.predict([input_list])[0]
-#     return {"prediction": int(prediction)}

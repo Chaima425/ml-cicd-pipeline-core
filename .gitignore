@@ -1,5 +1,22 @@
+# Python / virtual environment
 .venv/
 mlruns/
 __pycache__/
 *.pyc
 .env
+docs/.venv
+
+# Ruff cache
+.ruff_cache/
+
+# Pytest cache
+.pytest_cache/
+
+# Logs
+*.log
+
+frontend/.env
+backend/.env
+
+# Optional: GitHub actions if you don't want to version them
+# .github/

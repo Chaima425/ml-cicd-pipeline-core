@@ -5,10 +5,10 @@ from pathlib import Path
 # Ajouter le dossier backend au PYTHONPATH
 sys.path.append(str(Path(__file__).resolve().parents[1]))
 
+from pathlib import Path
+
 from app.api import app
 from fastapi.testclient import TestClient
-import pytest
-from pathlib import Path
 
 client = TestClient(app)
 

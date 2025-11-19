@@ -1,11 +1,12 @@
 # frontend/app.py
-import streamlit as st
-import requests
 import os
+
+import requests
+import streamlit as st
 
 st.title("Iris Prediction App")
 
-backend_url = os.getenv("BACKEND_URL", "http://localhost:8000")
+backend_url = os.getenv("BACKEND_URL", "http://iris-backend2:8000")
 
 sepal_length = st.number_input("Sepal length", 0.0, 10.0, 5.1)
 sepal_width = st.number_input("Sepal width", 0.0, 10.0, 3.5)

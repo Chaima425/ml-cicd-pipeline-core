@@ -1,18 +1,16 @@
 # backend/ml/train.py
-import os
-import argparse # pour fichier exécutable en ligne de commande (clI)
+import argparse  # pour fichier exécutable en ligne de commande (clI)
 import logging
+import os
 from pathlib import Path
-
-import pandas as pd
-from sklearn import datasets 
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 import joblib
 import mlflow
-import mlflow.sklearn # pour autolog & log_model
+import mlflow.sklearn  # pour autolog & log_model
+from sklearn import datasets
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
+from sklearn.model_selection import train_test_split
 
 # ---------------------------
 # Configuration logging
@@ -73,7 +71,6 @@ def train_and_log(args):
     # 1) Préparer les données (Iris)
     logger.info("Chargement du dataset Iris")
     X, y = datasets.load_iris(return_X_y=True)
-    feature_names = datasets.load_iris().feature_names
 
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=args.test_size, random_state=args.random_state, stratify=y

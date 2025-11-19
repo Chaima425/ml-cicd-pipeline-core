@@ -1,10 +1,28 @@
 [tool.ruff]
-# Longueur maximale d'une ligne
-line-length = 79
+line-length = 120
+indent-width = 4
+target-version = "py312"
 
-# Sélection de règles supplémentaires
-extend-select = ["E501", "UP", "D"]
+# Activates recommended rule sets
+lint.select = [
+  "E",     # Errors
+  "F",     # Pyflakes
+  "I",     # Import sorting
+  "UP",    # Pyupgrade
+  "B",     # Bugbear
+]
 
-[tool.ruff.lint.pydocstyle]
-# Convention Google pour les docstrings
-convention = "google"
+lint.ignore = [
+  "E501",  # Ignore line too long (optional)
+]
+
+# Exclude files and folders
+exclude = [
+  ".venv",
+  "mlruns",
+]
+
+[tool.ruff.format]
+quote-style = "double"     # can be 'single'
+indent-style = "space"
+line-ending = "auto"
