@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  backend:
+    image: iris-backend:latest
+    container_name: iris-backend
+    build:
+      context: ./backend
+    ports:
+      - "8100:8000"
+    env_file:
+      - ./backend/.env
+    networks:
+      - iris-network
+
+  frontend:
+    image: iris-frontend:latest
+    container_name: iris-frontend
+    build:
+      context: ./frontend
+    ports:
+      - "8501:8501"
+    env_file:
+      - ./frontend/.env
+    networks:
+      - iris-network
+    depends_on:
+      - backend
+
+networks:
+  iris-network:
+    driver: bridge
