@@ -20,3 +20,5 @@ backend/.env
 
 # Optional: GitHub actions if you don't want to version them
 # .github/
+
+config.json/

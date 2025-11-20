@@ -10,3 +10,5 @@ joblib
 python-dotenv
 ruff
 httpx
+azureml-core
+setuptools
